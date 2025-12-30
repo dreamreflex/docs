@@ -17,15 +17,8 @@ main:
       script: |
         npm run docs:build
 
-    - name: 部署到Cloudflare备份网络
-      image: docker.cnb.cool/hex/cloudflare-wrangler:latest
-      imports:
-        - https://cnb.cool/greenshadecapital/dreamreflex/assets-secrets/-/blob/main/api-server.yml
-      script: 
-        - wrangler pages deploy /workspace/.vitepress/dist/ --project-name=dreamreflex-doc --branch main
-
     - name: 部署到EdgeOne加速网络
       imports:
         - https://cnb.cool/greenshadecapital/dreamreflex/assets-secrets/-/blob/main/api-server.yml
       image: node:20
-      script: npx edgeone pages deploy /workspace/build/ -n dreamreflex-doc -t $EDGEONE_API_TOKEN
+      script: npx edgeone pages deploy /workspace/.vitepress/dist/ -n dreamreflex-doc -t $EDGEONE_API_TOKEN
