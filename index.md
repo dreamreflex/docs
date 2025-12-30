@@ -12,7 +12,7 @@ hero:
   actions:
     - theme: brand
       text: 进入文档
-      link: /blog
+      link: /info
     - theme: alt
       text: 访问官网
       link: https://dreamreflex.com

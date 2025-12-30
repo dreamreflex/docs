@@ -121,13 +121,13 @@ export default defineConfig({
   head: [
     ['link', { rel: 'icon', href: '/dreamreflex-logo-square-no-bg.svg' }]
   ],
-  title: "DreamReflex Blog",
-  description: "云梦镜像博客",
+  title: "DreamReflex Docs",
+  description: "云梦镜像文档中心",
   themeConfig: {
     // local search provider (merged from duplicate key)
     editLink: {
-      pattern: 'https://github.com/dreamreflex/blog/edit/main/:path',
-      text: '在Github上编辑此页'
+      pattern: 'https://cnb.cool/greenshadecapital/dreamreflex/devops-docs/edit/main/:path',
+      text: '在CNB上编辑此页'
     },
     search: {
       provider: 'local'
@@ -150,12 +150,12 @@ export default defineConfig({
     },
 
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/dreamreflex/blog' }
+      { icon: 'github', link: 'https://cnb.cool/greenshadecapital/dreamreflex/devops-docs' }
     ]
     ,
     // Footer 备案信息
     footer: {
-      message: 'Dream Reflex Blog, Built by <a href="https://github.com/vuejs/vitepress">VitePress</a>',
+      message: 'Dream Reflex Docs, Built by <a href="https://cnb.cool/greenshadecapital/dreamreflex/devops-docs">VitePress</a>',
       copyright: 'Copyright © 2025 Dream Reflex Inc. All Rights Reserved.'
     }
   },
