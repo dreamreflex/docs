@@ -1,5 +1,7 @@
 # AI驱动的边缘应用转型白皮书
 
+访问项目仓库： [Github Serverlesslize](https://github.com/dreamreflex/serverlesslize)
+
 ## 前言
 
 AI技术飞速发展，对于AI如何影响生产生活，如何落地，如何影响商业模式等问题无法给出完美答案，白皮书通过参考IT发展史给出了一个特定角度来看待问题，并作出一些判断，未来的项目将会基于这些判断进行开展。
