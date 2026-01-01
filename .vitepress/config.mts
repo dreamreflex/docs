@@ -140,7 +140,8 @@ export default defineConfig({
       { text: '产品手册', link: '/product/' },
       { text: '文档与参考', link: '/info/' },
       { text: '合规公开', link: '/legal/' },
-      { text: '博客', link: 'https://blog.dreamreflex.com' }
+      { text: '博客', link: 'https://blog.dreamreflex.com' },
+      { text: 'CSA平台', link: 'https://platform.dreamreflex.com' }
     ],
 
     sidebar: {
