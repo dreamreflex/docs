@@ -119,7 +119,15 @@ function getFrontmatterFromFile(fullPath) {
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   head: [
-    ['link', { rel: 'icon', href: '/dreamreflex-logo-square-no-bg.svg' }]
+    [
+      'link', { rel: 'icon', href: '/dreamreflex-logo-square-no-bg.svg' },
+    ],
+    ['script',
+    {
+      defer: '',
+      src: 'https://report.dreamreflex.com/script.js',
+      'data-website-id': 'cd8c23da-61a9-4e32-a51b-76e2c8a3cc51'
+    }]
   ],
   title: "DreamReflex Docs",
   description: "云梦镜像文档中心",
