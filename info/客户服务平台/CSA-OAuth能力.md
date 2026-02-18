@@ -165,3 +165,18 @@ CSA已经支持PKCE，下面的信息将会帮助您接入PKCE
 3. 浏览器跳转授权端点 → 回调收到 `code`/`state` → 校验 `state`。  
 4. 使用 `code + code_verifier` 调用令牌端点，获取 Access Token（可选 Refresh Token/ID Token）。  
 5. 用 Access Token 访问受保护 API；如需长登录，使用 Refresh Token 续期。
+
+## 与Cloudflare零信任接入
+
+鉴于您的零信任架构可能基于Cloudflare的Zero Trust，您可以将云梦镜像的OAuth认证体系与Cloudflare的Zero Trust集成，实现基于Cloudflare的零信任认证。
+
+在Cloudflare的标识提供程序集成中，您可以配置云梦镜像身份源作为您的标识提供程序。更多详细内容可以参考[Cloudflare Zero Trust 身份提供程序集成](https://developers.cloudflare.com/cloudflare-one/integrations/identity-providers/)
+
+具体接入方式为：
+1. 在`集成` - `标识提供程序` - `添加登录方式` 中选择 `OpenID Connect`
+2. 填写一个您的接入名称用于在登录页中标识此标识提供程序的唯一名称。
+3. `应用 ID`字段是您在云梦镜像中创建的OAuth客户端的`Client ID`。
+4. `客户端密码` 字段是您在云梦镜像中创建的OAuth客户端的`Client Secret`。
+5. 其他信息可以参考 [服务端信息](#服务端信息)
+6. 云梦镜像支持`代码交换证明密钥 (PKCE)`
+7. 其他保持默认，配置右侧的设置说明即可
