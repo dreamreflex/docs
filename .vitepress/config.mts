@@ -3,6 +3,14 @@ import { defineConfig } from 'vitepress'
 import fs from 'fs'
 import path from 'path'
 
+// 站点的访问根 URL（不带末尾斜杠），用于生成绝对 OG 链接
+// 微信链接卡片要求 og:url / og:image 必须是绝对 URL
+const SITE_URL = 'https://docs.dreamreflex.com'
+
+// 默认 OG 封面图（需在 public/ 下放置同名 PNG 文件）
+// 微信不支持 SVG；建议尺寸 1200×630px 或 800×800px
+const DEFAULT_OG_IMAGE = `${SITE_URL}/og-cover.png`
+
 // helper: generate sidebar groups for a directory (root files + subdir groups)
 function generateSidebarFor(dirRelativePath) {
   const root = path.resolve(process.cwd(), dirRelativePath)
@@ -119,18 +127,57 @@ function getFrontmatterFromFile(fullPath) {
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   head: [
-    [
-      'link', { rel: 'icon', href: '/dreamreflex-logo-square-no-bg.svg' },
-    ],
-    ['script',
-    {
+    ['link', { rel: 'icon', href: '/dreamreflex-logo-square-no-bg.svg' }],
+    ['script', {
       defer: '',
       src: 'https://report.dreamreflex.com/script.js',
       'data-website-id': 'cd8c23da-61a9-4e32-a51b-76e2c8a3cc51'
-    }]
+    }],
+    // 全局基础 OG / Twitter 标签（各页面动态覆盖见 transformHead）
+    ['meta', { property: 'og:site_name', content: 'DreamReflex Docs' }],
+    ['meta', { property: 'og:locale', content: 'zh_CN' }],
+    ['meta', { name: 'twitter:card', content: 'summary_large_image' }],
   ],
   title: "DreamReflex Docs",
   description: "云梦镜像文档中心",
+
+  // 为每个页面动态注入 Open Graph 标签，确保微信链接卡片正常抓取
+  transformHead({ pageData, siteData }) {
+    const head = []
+
+    const title =
+      pageData.frontmatter?.title ||
+      pageData.title ||
+      siteData.title ||
+      'DreamReflex Docs'
+
+    const description =
+      pageData.frontmatter?.description ||
+      pageData.description ||
+      siteData.description ||
+      '云梦镜像面向客户与开发者的帮助和参考中心'
+
+    // 将相对路径转为绝对 URL（去掉末尾 index、替换 .md 后缀）
+    const pagePath = (pageData.relativePath || '')
+      .replace(/\.md$/, '')
+      .replace(/(^|\/)index$/, '$1')
+    const pageUrl = `${SITE_URL}/${pagePath}`.replace(/\/$/, '') || SITE_URL
+
+    head.push(['meta', { property: 'og:type',        content: 'website'        }])
+    head.push(['meta', { property: 'og:title',       content: title            }])
+    head.push(['meta', { property: 'og:description', content: description      }])
+    head.push(['meta', { property: 'og:url',         content: pageUrl          }])
+    head.push(['meta', { property: 'og:image',       content: DEFAULT_OG_IMAGE }])
+    head.push(['meta', { property: 'og:image:width', content: '1200'           }])
+    head.push(['meta', { property: 'og:image:height',content: '630'            }])
+
+    // Twitter/X Card（兼容性补充，不影响微信）
+    head.push(['meta', { name: 'twitter:title',       content: title            }])
+    head.push(['meta', { name: 'twitter:description', content: description      }])
+    head.push(['meta', { name: 'twitter:image',       content: DEFAULT_OG_IMAGE }])
+
+    return head
+  },
   themeConfig: {
     // local search provider (merged from duplicate key)
     editLink: {
